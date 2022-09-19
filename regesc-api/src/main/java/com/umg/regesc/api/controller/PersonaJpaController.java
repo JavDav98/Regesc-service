@@ -34,7 +34,6 @@ public class PersonaJpaController implements Serializable {
             value = "/all",
             produces = "application/json")
     public List<Persona> getAll() {
-
         return (List<Persona>) perosnaRepository.findAll();
     }
 

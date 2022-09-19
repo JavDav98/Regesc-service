@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,6 +50,11 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @Column(name = "direccion")
     private String direccion;
+
+    @Basic(optional = false)
+    @Column(name = "nacimiento")
+    private String nacimiento;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personaCui", fetch = FetchType.LAZY)
     private Set<Student> studentSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personaCui", fetch = FetchType.LAZY)
@@ -92,6 +98,14 @@ public class Persona implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getNacimiento() {
+        return nacimiento;
+    }
+
+    public void setNacimiento(String nacimiento) {
+        this.nacimiento = nacimiento;
     }
 
     public Set<Student> getStudentList() {

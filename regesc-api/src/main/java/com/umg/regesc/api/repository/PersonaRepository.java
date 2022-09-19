@@ -5,4 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PersonaRepository extends JpaRepository<Persona, Long> {
     Persona findByCui(Long cui);
+
+/*
+    Persona findByStudentListContaining(Integer carnet);
+*/
 }
