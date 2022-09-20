@@ -35,6 +35,7 @@ public class Student implements Serializable {
     private String usuario;
     @Column(name = "password")
     private String password;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentCarnetstudent", fetch = FetchType.LAZY)
     private Set<Matriculaestudiante> matriculaestudianteSet;
     @JoinColumn(name = "persona_cui", referencedColumnName = "cui")

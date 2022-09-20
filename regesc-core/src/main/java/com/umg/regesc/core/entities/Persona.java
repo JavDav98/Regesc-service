@@ -55,6 +55,10 @@ public class Persona implements Serializable {
     @Column(name = "nacimiento")
     private String nacimiento;
 
+    @Basic(optional = false)
+    @Column(name = "email")
+    private String email;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personaCui", fetch = FetchType.LAZY)
     private Set<Student> studentSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personaCui", fetch = FetchType.LAZY)
@@ -107,6 +111,10 @@ public class Persona implements Serializable {
     public void setNacimiento(String nacimiento) {
         this.nacimiento = nacimiento;
     }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 
     public Set<Student> getStudentList() {
         return studentSet;
