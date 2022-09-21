@@ -1,54 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.umg.regesc.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
-/*
 
-*/
-/**
- *
- * @author javdav
- */
 @Entity
-@Data
-@Table(name = "student")
-public class Student implements Serializable {
-
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "student", schema = "regesc_simp2", indexes = {
+        @Index(name = "fk_student_persona1_idx", columnList = "persona_cui")
+})
+public class Student {
     @Id
-    @Basic(optional = false)
-    @Column(name = "carnetstudent")
-    private Integer carnetstudent;
-    @Column(name = "usuario")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "carnetstudent", nullable = false)
+    private Integer id;
+
+    @Column(name = "usuario", nullable = false, length = 45)
     private String usuario;
-    @Column(name = "password")
+
+    @Column(name = "password", nullable = false, length = 45)
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentCarnetstudent", fetch = FetchType.LAZY)
-    private Set<Matriculaestudiante> matriculaestudianteSet;
-    @JoinColumn(name = "persona_cui", referencedColumnName = "cui")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private Persona personaCui;
+    @Column(name = "persona_cui", nullable = false)
+    private Long personaCui;
 
-    public Integer getCarnetstudent() {
-        return carnetstudent;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCarnetstudent(Integer carnetstudent) {
-        this.carnetstudent = carnetstudent;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsuario() {
@@ -67,22 +45,12 @@ public class Student implements Serializable {
         this.password = password;
     }
 
-    public Set<Matriculaestudiante> getMatriculaestudianteList() {
-        return matriculaestudianteSet;
-    }
-
-    public void setMatriculaestudianteList(Set<Matriculaestudiante> matriculaestudianteList) {
-        this.matriculaestudianteSet = matriculaestudianteList;
-        for (Matriculaestudiante me: matriculaestudianteList) {
-            me.setStudentCarnetstudent(this);
-        }
-    }
-
-    public Persona getPersonaCui() {
+    public Long getPersonaCui() {
         return personaCui;
     }
 
-    public void setPersonaCui(Persona persona_cui) {
-        this.personaCui = persona_cui;
+    public void setPersonaCui(Long personaCui) {
+        this.personaCui = personaCui;
     }
+
 }

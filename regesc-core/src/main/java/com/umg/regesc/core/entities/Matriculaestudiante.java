@@ -1,61 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.umg.regesc.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import lombok.Data;
-
-import java.io.Serializable;
 import javax.persistence.*;
-/*
-
-*/
-/**
- *
- * @author javdav
- */
 
 @Entity
-@Data
-@Table(name = "matriculaestudiante" , uniqueConstraints = {@UniqueConstraint(columnNames = {"idmatriculaestudiante"})})
-public class Matriculaestudiante implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "matriculaestudiante", schema = "regesc_simp2", indexes = {
+        @Index(name = "fk_matriculaestudiante_curso1_idx", columnList = "curso_idcurso"),
+        @Index(name = "fk_matriculaestudiante_student1_idx", columnList = "student_carnetstudent")
+})
+public class Matriculaestudiante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idmatriculaestudiante")
-    private Integer idmatriculaestudiante;
-    @Basic(optional = false)
-    @Column(name = "nota1")
-    private String nota1;
-    @Basic(optional = false)
-    @Column(name = "nota2")
-    private String nota2;
-    @Basic(optional = false)
-    @Column(name = "nota3")
-    private String nota3;
-    @Basic(optional = false)
-    @Column(name = "notafinal")
-    private String notafinal;
-    @JoinColumn(name = "curso_idcurso", referencedColumnName = "idcurso")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private Curso cursoIdcurso;
-    @JoinColumn(name = "student_carnetstudent", referencedColumnName = "carnetstudent")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private Student studentCarnetstudent;
+    @Column(name = "idmatriculaestudiante", nullable = false)
+    private Integer id;
 
-    public Integer getIdmatriculaestudiante() {
-        return idmatriculaestudiante;
+    @Column(name = "nota1", nullable = false, length = 45)
+    private String nota1;
+
+    @Column(name = "nota2", nullable = false, length = 45)
+    private String nota2;
+
+    @Column(name = "nota3", nullable = false, length = 45)
+    private String nota3;
+
+    @Column(name = "notafinal", nullable = false, length = 45)
+    private String notafinal;
+
+    @Column(name = "curso_idcurso", nullable = false)
+    private Integer cursoIdcurso;
+
+    @Column(name = "student_carnetstudent", nullable = false)
+    private Integer studentCarnetstudent;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdmatriculaestudiante(Integer idmatriculaestudiante) {
-        this.idmatriculaestudiante = idmatriculaestudiante;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNota1() {
@@ -90,19 +71,20 @@ public class Matriculaestudiante implements Serializable {
         this.notafinal = notafinal;
     }
 
-    public Curso getCursoIdcurso() {
+    public Integer getCursoIdcurso() {
         return cursoIdcurso;
     }
 
-    public void setCursoIdcurso(Curso curso_idcurso) {
-        this.cursoIdcurso = curso_idcurso;
+    public void setCursoIdcurso(Integer cursoIdcurso) {
+        this.cursoIdcurso = cursoIdcurso;
     }
 
-    public Student getStudentCarnetstudent() {
+    public Integer getStudentCarnetstudent() {
         return studentCarnetstudent;
     }
 
-    public void setStudentCarnetstudent(Student student_carnetstudent) {
-        this.studentCarnetstudent = student_carnetstudent;
+    public void setStudentCarnetstudent(Integer studentCarnetstudent) {
+        this.studentCarnetstudent = studentCarnetstudent;
     }
+
 }

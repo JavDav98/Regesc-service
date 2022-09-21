@@ -1,56 +1,38 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.umg.regesc.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
-/*
-
-*/
-/**
- *
- * @author javdav
- */
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Data
-@Table(name = "curso")
-public class Curso implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "curso", schema = "regesc_simp2")
+public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idcurso")
-    private Integer idcurso;
-    @Basic(optional = false)
-    @Column(name = "nombre")
-    private String nombre;
-    @Basic(optional = false)
-    @Column(name = "seccion")
-    private String seccion;
-    @Basic(optional = false)
-    @Column(name = "horario")
-    private String horario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursoIdcurso", fetch = FetchType.LAZY)
-    private Set<Matriculaestudiante> matriculaestudianteSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursoIdcurso", fetch = FetchType.LAZY)
-    private Set<Matriculaprofesor> matriculaprofesorSet;
+    @Column(name = "idcurso", nullable = false)
+    private Integer id;
 
-    public Integer getIdcurso() {
-        return idcurso;
+    @Column(name = "nombre", nullable = false, length = 45)
+    private String nombre;
+
+    @Column(name = "seccion", nullable = false, length = 45)
+    private String seccion;
+
+    @Column(name = "horario", nullable = false, length = 45)
+    private String horario;
+
+    @OneToMany(mappedBy = "cursoIdcurso")
+    private Set<Matriculaprofesor> matriculaprofesors = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "cursoIdcurso")
+    private Set<Matriculaestudiante> matriculaestudiantes = new LinkedHashSet<>();
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdcurso(Integer idcurso) {
-        this.idcurso = idcurso;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -77,25 +59,20 @@ public class Curso implements Serializable {
         this.horario = horario;
     }
 
-    public Set<Matriculaestudiante> getMatriculaestudianteList() {
-        return matriculaestudianteSet;
+    public Set<Matriculaprofesor> getMatriculaprofesors() {
+        return matriculaprofesors;
     }
 
-    public void setMatriculaestudianteList(Set<Matriculaestudiante> matriculaestudianteList) {
-        this.matriculaestudianteSet = matriculaestudianteList;
-        for (Matriculaestudiante me: matriculaestudianteList ) {
-            me.setCursoIdcurso(this);
-        }
+    public void setMatriculaprofesors(Set<Matriculaprofesor> matriculaprofesors) {
+        this.matriculaprofesors = matriculaprofesors;
     }
 
-    public Set<Matriculaprofesor> getMatriculaprofesorList() {
-        return matriculaprofesorSet;
+    public Set<Matriculaestudiante> getMatriculaestudiantes() {
+        return matriculaestudiantes;
     }
 
-    public void setMatriculaprofesorList(Set<Matriculaprofesor> matriculaprofesorList) {
-        this.matriculaprofesorSet = matriculaprofesorList;
-        for (Matriculaprofesor mp: matriculaprofesorList){
-            mp.setCursoIdcurso(this);
-        }
+    public void setMatriculaestudiantes(Set<Matriculaestudiante> matriculaestudiantes) {
+        this.matriculaestudiantes = matriculaestudiantes;
     }
+
 }

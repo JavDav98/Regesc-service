@@ -1,64 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.umg.regesc.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import lombok.Data;
-
-import java.io.Serializable;
 import javax.persistence.*;
-/*
-
-*/
-/**
- *
- * @author javdav
- */
 
 @Entity
-@Data
-@Table(name = "matriculaprofesor")
-public class Matriculaprofesor implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "matriculaprofesor", schema = "regesc_simp2", indexes = {
+        @Index(name = "fk_matriculaprofesor_profesor1_idx", columnList = "profesor_carnetprofesor"),
+        @Index(name = "fk_matriculaprofesor_curso1_idx", columnList = "curso_idcurso")
+})
+public class Matriculaprofesor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idmatriculaprofesor")
-    private Integer idmatriculaprofesor;
-    @JoinColumn(name = "curso_idcurso", referencedColumnName = "idcurso")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private Curso cursoIdcurso;
-    @JoinColumn(name = "profesor_carnetprofesor", referencedColumnName = "carnetprofesor")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private Profesor profesorCarnetprofesor;
+    @Column(name = "idmatriculaprofesor", nullable = false)
+    private Integer id;
 
-    public Integer getIdmatriculaprofesor() {
-        return idmatriculaprofesor;
+    @Column(name = "curso_idcurso", nullable = false)
+    private Integer cursoIdcurso;
+
+    @Column(name = "profesor_carnetprofesor", nullable = false)
+    private Integer profesorCarnetprofesor;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdmatriculaprofesor(Integer idmatriculaprofesor) {
-        this.idmatriculaprofesor = idmatriculaprofesor;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Curso getCursoIdcurso() {
+    public Integer getCursoIdcurso() {
         return cursoIdcurso;
     }
 
-    public void setCursoIdcurso(Curso curso_idcurso) {
-        this.cursoIdcurso = curso_idcurso;
+    public void setCursoIdcurso(Integer cursoIdcurso) {
+        this.cursoIdcurso = cursoIdcurso;
     }
 
-    public Profesor getProfesorCarnetprofesor() {
+    public Integer getProfesorCarnetprofesor() {
         return profesorCarnetprofesor;
     }
 
-    public void setProfesorCarnetprofesor(Profesor profesor_carnetprofesor) {
-        this.profesorCarnetprofesor = profesor_carnetprofesor;
+    public void setProfesorCarnetprofesor(Integer profesorCarnetprofesor) {
+        this.profesorCarnetprofesor = profesorCarnetprofesor;
     }
+
 }

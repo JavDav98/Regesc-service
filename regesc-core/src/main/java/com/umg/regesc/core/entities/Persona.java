@@ -1,75 +1,48 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.umg.regesc.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-/*
-*//**
- *
- * @author javdav
- */
-@Entity
-@Data
-@Table(name = "persona")
-public class Persona implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+@Entity
+@Table(name = "persona", schema = "regesc_simp2", uniqueConstraints = {
+        @UniqueConstraint(name = "cui_UNIQUE", columnNames = {"cui"})
+})
+public class Persona {
     @Id
-    @Basic(optional = false)
-    @Column(name = "cui")
-    private Long cui;
-    @Basic(optional = false)
-    @Column(name = "nombre")
+    @Column(name = "cui", nullable = false)
+    private Long id;
+
+    @Column(name = "nombre", nullable = false, length = 45)
     private String nombre;
-    @Basic(optional = false)
-    @Column(name = "apellido")
+
+    @Column(name = "apellido", nullable = false, length = 45)
     private String apellido;
-    @Basic(optional = false)
-    @Column(name = "telefono")
-    private int telefono;
-    @Basic(optional = false)
-    @Column(name = "direccion")
+
+    @Column(name = "telefono", nullable = false)
+    private Integer telefono;
+
+    @Column(name = "direccion", nullable = false, length = 45)
     private String direccion;
 
-    @Basic(optional = false)
-    @Column(name = "nacimiento")
+    @Column(name = "nacimiento", nullable = false, length = 45)
     private String nacimiento;
 
-    @Basic(optional = false)
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = 45)
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personaCui", fetch = FetchType.LAZY)
-    private Set<Student> studentSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personaCui", fetch = FetchType.LAZY)
-    private Set<Profesor> profesorSet;
+    @OneToMany(mappedBy = "personaCui")
+    private Set<Student> students = new LinkedHashSet<>();
 
-    public Long getCui() {
-        return cui;
+    @OneToMany(mappedBy = "personaCui")
+    private Set<Profesor> profesors = new LinkedHashSet<>();
+
+    public Long getId() {
+        return id;
     }
 
-    public void setCui(Long cui) {
-        this.cui = cui;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -88,11 +61,11 @@ public class Persona implements Serializable {
         this.apellido = apellido;
     }
 
-    public int getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
 
@@ -112,26 +85,28 @@ public class Persona implements Serializable {
         this.nacimiento = nacimiento;
     }
 
-    public String getEmail() { return email; }
-
-    public void setEmail(String email) { this.email = email; }
-
-    public Set<Student> getStudentList() {
-        return studentSet;
+    public String getEmail() {
+        return email;
     }
 
-    public void setStudentList(Set<Student> studentList) {
-        this.studentSet = studentList;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Set<Profesor> getProfesorList() {
-        return profesorSet;
+    public Set<Student> getStudents() {
+        return students;
     }
 
-    public void setProfesorList(Set<Profesor> profesorList) {
-        this.profesorSet = profesorList;
-        for (Profesor p: profesorList) {
-            p.setPersonaCui(this);
-        }
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
+
+    public Set<Profesor> getProfesors() {
+        return profesors;
+    }
+
+    public void setProfesors(Set<Profesor> profesors) {
+        this.profesors = profesors;
+    }
+
 }

@@ -1,52 +1,34 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.umg.regesc.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
-/*
-
-*/
-/**
- *
- * @author javdav
- */
 
 @Entity
-@Table(name = "profesor")
-public class Profesor implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "profesor", schema = "regesc_simp2", indexes = {
+        @Index(name = "fk_profesor_persona_idx", columnList = "persona_cui")
+}, uniqueConstraints = {
+        @UniqueConstraint(name = "carnetprofesor_UNIQUE", columnNames = {"carnetprofesor"})
+})
+public class Profesor {
     @Id
-    @Basic(optional = false)
-    @Column(name = "carnetprofesor")
-    private Integer carnetprofesor;
-    @Column(name = "usuario")
-    private String usuario;
-    @Column(name = "password")
-    private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesorCarnetprofesor", fetch = FetchType.LAZY)
-    private Set<Matriculaprofesor> matriculaprofesorSet;
-    @JoinColumn(name = "persona_cui", referencedColumnName = "cui")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private Persona personaCui;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "carnetprofesor", nullable = false)
+    private Integer id;
 
-    public Integer getCarnetprofesor() {
-        return carnetprofesor;
+    @Column(name = "usuario", nullable = false, length = 45)
+    private String usuario;
+
+    @Column(name = "password", nullable = false, length = 45)
+    private String password;
+
+    @Column(name = "persona_cui", nullable = false)
+    private Long personaCui;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setCarnetprofesor(Integer carnetprofesor) {
-        this.carnetprofesor = carnetprofesor;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsuario() {
@@ -65,22 +47,12 @@ public class Profesor implements Serializable {
         this.password = password;
     }
 
-    public Set<Matriculaprofesor> getMatriculaprofesorList() {
-        return matriculaprofesorSet;
-    }
-
-    public void setMatriculaprofesorList(Set<Matriculaprofesor> matriculaprofesorList) {
-        this.matriculaprofesorSet = matriculaprofesorList;
-        for (Matriculaprofesor mp: matriculaprofesorList){
-            mp.setProfesorCarnetprofesor(this);
-        }
-    }
-
-    public Persona getPersonaCui() {
+    public Long getPersonaCui() {
         return personaCui;
     }
 
-    public void setPersonaCui(Persona persona_cui) {
-        this.personaCui = persona_cui;
+    public void setPersonaCui(Long personaCui) {
+        this.personaCui = personaCui;
     }
+
 }
