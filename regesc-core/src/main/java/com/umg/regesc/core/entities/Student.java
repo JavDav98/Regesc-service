@@ -10,7 +10,7 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "carnetstudent", nullable = false)
-    private Integer id;
+    private Integer carnet;
 
     @Column(name = "usuario", nullable = false, length = 45)
     private String usuario;
@@ -21,12 +21,12 @@ public class Student {
     @Column(name = "persona_cui", nullable = false)
     private Long personaCui;
 
-    public Integer getId() {
-        return id;
+    public Integer getCarnet() {
+        return carnet;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCarnet(Integer carnet) {
+        this.carnet = carnet;
     }
 
     public String getUsuario() {

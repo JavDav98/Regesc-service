@@ -47,8 +47,8 @@ public class CursoJpaController implements Serializable {
         return cursoRepository.save(c);
     }
 
-    @GetMapping("/find/by/idcurso/{idcurso}")
+    /*@GetMapping("/find/by/idcurso/{idcurso}")
     public Curso findById(@PathVariable("id") Integer idcurso){
         return  cursoRepository.findByIdcurso(idcurso);
-    }
+    }*/
 }

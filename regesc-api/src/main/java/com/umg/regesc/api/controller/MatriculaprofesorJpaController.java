@@ -22,7 +22,7 @@ import java.util.List;
 @Api(value = "/", description = "REST Matriculaprofesor")
 @RestController
 @RequestMapping("/matriculaprofesor")
-public class MatriculaprofesorJpaController implements Serializable {/*
+public class MatriculaprofesorJpaController implements Serializable {
 
     @Autowired
     MatriculaprofesorRepository matriculaprofesorRepository;
@@ -53,5 +53,5 @@ public class MatriculaprofesorJpaController implements Serializable {/*
     public Matriculaprofesor update(@RequestBody Matriculaprofesor matriculaprofesor) {
         matriculaprofesor = matriculaprofesorRepository.save(matriculaprofesor);
         return matriculaprofesor;
-    }*/
+    }
 }

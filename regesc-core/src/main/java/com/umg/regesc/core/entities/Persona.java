@@ -11,7 +11,7 @@ import java.util.Set;
 public class Persona {
     @Id
     @Column(name = "cui", nullable = false)
-    private Long id;
+    private Long cui;
 
     @Column(name = "nombre", nullable = false, length = 45)
     private String nombre;
@@ -37,12 +37,12 @@ public class Persona {
     @OneToMany(mappedBy = "personaCui")
     private Set<Profesor> profesors = new LinkedHashSet<>();
 
-    public Long getId() {
-        return id;
+    public Long getCui() {
+        return cui;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCui(Long cui) {
+        this.cui = cui;
     }
 
     public String getNombre() {

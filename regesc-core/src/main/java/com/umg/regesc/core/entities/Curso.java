@@ -10,7 +10,7 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idcurso", nullable = false)
-    private Integer id;
+    private Integer idcurso;
 
     @Column(name = "nombre", nullable = false, length = 45)
     private String nombre;
@@ -27,12 +27,12 @@ public class Curso {
     @OneToMany(mappedBy = "cursoIdcurso")
     private Set<Matriculaestudiante> matriculaestudiantes = new LinkedHashSet<>();
 
-    public Integer getId() {
-        return id;
+    public Integer getIdcurso() {
+        return idcurso;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdcurso(Integer idcurso) {
+        this.idcurso = idcurso;
     }
 
     public String getNombre() {

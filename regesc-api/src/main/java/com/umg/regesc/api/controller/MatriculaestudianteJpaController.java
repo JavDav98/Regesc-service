@@ -4,13 +4,17 @@
  */
 package com.umg.regesc.api.controller;
 
+import com.umg.regesc.api.repository.CursoRepository;
 import com.umg.regesc.api.repository.MatriculaestudianteRepository;
+import com.umg.regesc.core.entities.Curso;
 import com.umg.regesc.core.entities.Matriculaestudiante;
+import com.umg.regesc.core.entities.Persona;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,10 +25,12 @@ import java.util.List;
 @Api(value = "/", description = "REST Matriculaestudiante")
 @RestController
 @RequestMapping("/matriculaestudiante")
-public class MatriculaestudianteJpaController implements Serializable {/*
+public class MatriculaestudianteJpaController implements Serializable {
 
     @Autowired
     MatriculaestudianteRepository matriculaestudianteRepository;
+    @Autowired
+    CursoRepository cursoRepository;
 
     @CrossOrigin
     @RequestMapping(
@@ -52,5 +58,20 @@ public class MatriculaestudianteJpaController implements Serializable {/*
     public Matriculaestudiante update(@RequestBody Matriculaestudiante matriculaestudiante) {
         matriculaestudiante = matriculaestudianteRepository.save(matriculaestudiante);
         return matriculaestudiante;
-    }*/
+    }
+
+    @GetMapping("/find/by/carnet/{carnet}")
+    public List<Matriculaestudiante> findByCui(@PathVariable("carnet") Long carnet){
+        return  matriculaestudianteRepository.findByStudentCarnetstudent(carnet);
+    }
+
+    @GetMapping("/cursos/inscrito/{carnet}")
+    public List<Curso> cursosInscrito(@PathVariable("carnet") Long carnet){
+        List<Matriculaestudiante> lms = matriculaestudianteRepository.findByStudentCarnetstudent(carnet);
+        List<Curso> cursos = new ArrayList<>();
+        for (Matriculaestudiante ms: lms) {
+            cursos.add(cursoRepository.findByIdcurso(ms.getCursoIdcurso()));
+        }
+        return  cursos;
+    }
 }
