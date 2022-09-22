@@ -5,12 +5,10 @@
 package com.umg.regesc.api.controller;
 
 import com.umg.regesc.api.repository.CursoRepository;
-import com.umg.regesc.api.repository.StudentRepository;
 import com.umg.regesc.core.entities.Curso;
 import java.io.Serializable;
 import java.util.List;
 
-import com.umg.regesc.core.entities.Student;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

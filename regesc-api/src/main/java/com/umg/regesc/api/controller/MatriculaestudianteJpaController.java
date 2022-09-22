@@ -8,7 +8,6 @@ import com.umg.regesc.api.repository.CursoRepository;
 import com.umg.regesc.api.repository.MatriculaestudianteRepository;
 import com.umg.regesc.core.entities.Curso;
 import com.umg.regesc.core.entities.Matriculaestudiante;
-import com.umg.regesc.core.entities.Persona;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

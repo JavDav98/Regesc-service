@@ -6,30 +6,14 @@ package com.umg.regesc.api.controller;
 
 import java.io.Serializable;
 
-import com.umg.regesc.api.controller.exceptions.IllegalOrphanException;
-import com.umg.regesc.api.controller.exceptions.NonexistentEntityException;
-import com.umg.regesc.api.controller.exceptions.PreexistingEntityException;
 import com.umg.regesc.api.repository.StudentRepository;
-import com.umg.regesc.core.entities.Matriculaestudiante;
-import com.umg.regesc.core.entities.Persona;
 import com.umg.regesc.core.entities.Student;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 /*
 *//**
  *

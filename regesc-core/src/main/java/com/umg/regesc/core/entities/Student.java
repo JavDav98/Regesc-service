@@ -1,15 +1,18 @@
 package com.umg.regesc.core.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "student", schema = "regesc_simp2", indexes = {
         @Index(name = "fk_student_persona1_idx", columnList = "persona_cui")
 })
+@Data
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "carnetstudent", nullable = false)
+    @Column(name = "carnetstudent")
     private Integer carnet;
 
     @Column(name = "usuario", nullable = false, length = 45)
