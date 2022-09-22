@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "curso", schema = "regesc_simp2")
+@Table(name = "curso", schema = "regesc_simp")
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

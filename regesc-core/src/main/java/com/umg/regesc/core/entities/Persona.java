@@ -1,11 +1,13 @@
 package com.umg.regesc.core.entities;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "persona", schema = "regesc_simp2", uniqueConstraints = {
+@Table(name = "persona", schema = "regesc_simp", uniqueConstraints = {
         @UniqueConstraint(name = "cui_UNIQUE", columnNames = {"cui"})
 })
 public class Persona {
@@ -26,7 +28,7 @@ public class Persona {
     private String direccion;
 
     @Column(name = "nacimiento", nullable = false, length = 45)
-    private String nacimiento;
+    private Date nacimiento;
 
     @Column(name = "email", nullable = false, length = 45)
     private String email;
@@ -77,11 +79,11 @@ public class Persona {
         this.direccion = direccion;
     }
 
-    public String getNacimiento() {
+    public Date  getNacimiento() {
         return nacimiento;
     }
 
-    public void setNacimiento(String nacimiento) {
+    public void setNacimiento(Date  nacimiento) {
         this.nacimiento = nacimiento;
     }
 

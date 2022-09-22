@@ -6,7 +6,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:33060/regesc_simp?zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://localhost:33060/regesc_simp2?zeroDateTimeBehavior=convertToNull
     username: root
     password: tibelio
     test-while-idle: true
