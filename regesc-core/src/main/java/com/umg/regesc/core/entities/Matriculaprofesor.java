@@ -3,7 +3,7 @@ package com.umg.regesc.core.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "matriculaprofesor", schema = "regesc_simp", indexes = {
+@Table(name = "matriculaprofesor", schema = "regesc_simp2", indexes = {
         @Index(name = "fk_matriculaprofesor_profesor1_idx", columnList = "profesor_carnetprofesor"),
         @Index(name = "fk_matriculaprofesor_curso1_idx", columnList = "curso_idcurso")
 })

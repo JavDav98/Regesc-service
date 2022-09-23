@@ -3,7 +3,7 @@ package com.umg.regesc.core.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "profesor", schema = "regesc_simp", indexes = {
+@Table(name = "profesor", schema = "regesc_simp2", indexes = {
         @Index(name = "fk_profesor_persona_idx", columnList = "persona_cui")
 }, uniqueConstraints = {
         @UniqueConstraint(name = "carnetprofesor_UNIQUE", columnNames = {"carnetprofesor"})

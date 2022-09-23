@@ -7,7 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "persona", schema = "regesc_simp", uniqueConstraints = {
+@Table(name = "persona", schema = "regesc_simp2", uniqueConstraints = {
         @UniqueConstraint(name = "cui_UNIQUE", columnNames = {"cui"})
 })
 public class Persona {

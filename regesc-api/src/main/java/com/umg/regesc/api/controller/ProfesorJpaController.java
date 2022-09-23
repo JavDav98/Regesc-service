@@ -6,7 +6,9 @@ package com.umg.regesc.api.controller;
 
 import java.io.Serializable;
 
+import com.umg.regesc.api.repository.PersonaRepository;
 import com.umg.regesc.api.repository.ProfesorRepository;
+import com.umg.regesc.core.entities.Persona;
 import com.umg.regesc.core.entities.Profesor;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class ProfesorJpaController implements Serializable {
 
     @Autowired
     ProfesorRepository profesorRepository;
+    @Autowired
+    PersonaRepository personaRepository;
 
     @CrossOrigin
     @RequestMapping(
@@ -53,5 +57,16 @@ public class ProfesorJpaController implements Serializable {
     public Profesor update(@RequestBody Profesor profesor) {
         profesor = profesorRepository.save(profesor);
         return profesor;
+    }
+
+    @GetMapping("/find/by/carnet/{carnet}")
+    public Profesor findByCarnet(@PathVariable("carnet") Integer carnet){
+        return  profesorRepository.findByCarnet(carnet);
+    }
+
+    @GetMapping("/datos/completos/{carnet}")
+    public Persona datosFindByCarnet(@PathVariable("carnet") Integer carnet){
+        Profesor p = profesorRepository.findByCarnet(carnet);
+        return  personaRepository.findByCui(p.getPersonaCui());
     }
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "student", schema = "regesc_simp", indexes = {
+@Table(name = "student", schema = "regesc_simp2", indexes = {
         @Index(name = "fk_student_persona1_idx", columnList = "persona_cui")
 })
 @Data
