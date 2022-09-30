@@ -4,4 +4,6 @@ import com.umg.regesc.core.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
+    Student deleteByCarnet(Integer carnet);
+    Student findByCarnet(Integer carnet);
 }

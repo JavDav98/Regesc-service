@@ -46,10 +46,11 @@ public class StudentJpaController implements Serializable {
         return estudianteRepository.save(estudiante);
     }
 
-    /*@GetMapping("/find/by/carnet/{carnet}")
-    public Student findByCarnet(@PathVariable("carnet") Integer carnet){
-        return  estudianteRepository.findByCarnetstudent(carnet);
-    }*/
-
+    @DeleteMapping("/delete/{carnet}")
+    public Student delete(@PathVariable("carnet")Integer carnet){
+        Student s = estudianteRepository.findByCarnet(carnet);
+        estudianteRepository.delete(s);
+        return s;
+    }
 
 }
