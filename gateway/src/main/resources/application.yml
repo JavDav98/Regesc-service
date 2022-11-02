@@ -1,0 +1,175 @@
+server:
+  port: 8887
+
+hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 2000
+hystrix.command.default.execution.isolation.strategy: THREAD
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+
+#        - id: book-store
+#          uri: lb://book-store
+#          predicates:
+#            - Path=/api/books/**
+#          filters:
+#            - name: RequestRateLimiter
+#              args:
+#                key-resolver: '#{@userKeyResolver}'
+#                redis-rate-limiter.replenishRate: 2
+#                redis-rate-limiter.burstCapacity: 2
+#            - RewritePath=/api/(?<books>.*), /$\{books}
+#            - name: Hystrix
+#              args:
+#                name: booksFallbackCommand
+#                fallbackUri: forward:/fallback/books
+#
+#
+#        - id: movie-store
+#          uri: lb://movie-store
+#          predicates:
+#            - Path=/api/movies/**
+#          filters:
+#            - name: RequestRateLimiter
+#              args:
+#                key-resolver: '#{@userKeyResolver}'
+#                redis-rate-limiter.replenishRate: 2
+#                redis-rate-limiter.burstCapacity: 2
+#            - RewritePath=/api/(?<movies>.*), /$\{movies}
+#            - AddResponseHeader=X-Some-Header, aboullaite.me
+#
+#
+#        - id: car-inventory
+#          #uri: lb://car-inventory
+#          uri: http://localhost:8010/
+#          predicates:
+#            - Path=/api/cars/**
+#          filters:
+#            - name: RequestRateLimiter
+#              args:
+#                key-resolver: '#{@userKeyResolver}'
+#                redis-rate-limiter.replenishRate: 2
+#                redis-rate-limiter.burstCapacity: 2
+#            # - TokenRelay=
+#            # - RewritePath=/api/(?<cars>.*), /viewCars
+#            - RewritePath=/api/cars(?<service>.*), /$\{service}
+#            - TokenRelay=
+
+        - id: regescapp
+          uri: http://localhost:4200/
+          predicates:
+            - Path=/regesc/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@userKeyResolver}'
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 2
+            - RewritePath=/regesc/(?<service>.*), /regesc/$\{service}
+                    - TokenRelay=
+
+        - id: estudiante-api
+          uri: http://localhost:8585/
+          predicates:
+            - Path=/api/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@userKeyResolver}'
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 2
+            - RewritePath=/api/(?<service>.*), /$\{service}
+              - TokenRelay=
+
+
+  #        - id: persona-react
+  #            #uri: lb://car-inventory
+  #            uri: http://localhost:8585/
+  #            predicates:
+  #              - Path=/api/person/**
+  #            filters:
+  #              - name: RequestRateLimiter
+  #                args:
+  #                  key-resolver: '#{@userKeyResolver}'
+  #                  redis-rate-limiter.replenishRate: 2
+  #                  redis-rate-limiter.burstCapacity: 2
+  #              - TokenRelay=
+  #              # - RewritePath=/api/(?<cars>.*), /viewCars
+  #              - RewritePath=/api/person(?<service>.*), /persona/$\{service}
+
+  redis:
+    host: 172.17.0.2
+    port: 6379
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 100
+
+  autoconfigure:
+    # TODO: remove when fixed https://github.com/spring-projects/spring-security/issues/6314
+    exclude: org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfiguration
+#
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          login-client:
+#            provider: uaa
+#            client-id: login-app
+#            client-secret: 9b7c6a74-7a1a-4558-acc7-e9a51b8450ac
+#            authorization-grant-type: authorization_code
+#            redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+#            scope: read,write
+#        provider:
+#          uaa:
+#            authorization-uri: http://localhost:8080/auth/realms/SpringBootKeycloak/protocol/openid-connect/auth
+#            token-uri: http://localhost:8080/auth/realms/SpringBootKeycloak/protocol/openid-connect/token
+#            user-info-uri: http://localhost:8080/auth/realms/SpringBootKeycloak/protocol/openid-connect/userinfo
+#            user-name-attribute: preferred_username
+#            jwk-set-uri: http://localhost:9050/auth/token_keys
+
+
+  security:
+    oauth2:
+      client:
+        registration:
+          login-client:
+            provider: regesc-angular
+            client-id: regesc-webapp
+            client-secret: s9ffs6ETR3WFglSzPIWFbfBENdHLE67D
+            authorization-grant-type: authorization_code
+            redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: read,write
+        provider:
+          regesc-angular:
+            authorization-uri: http://localhost:8080/auth/realms/RegescKeycloak/protocol/openid-connect/auth
+            token-uri: http://localhost:8080/auth/realms/RegescKeycloak/protocol/openid-connect/token
+            user-info-uri: http://localhost:8080/auth/realms/RegescKeycloak/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+            jwk-set-uri: http://localhost:8080/auth/realms/RegescKeycloak/protocol/openid-connect/certs
+
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8888/eureka
+#  instance:
+#    preferIpAddress: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        #include: hystrix.stream
+
+
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.cloud.gateway: DEBUG
