@@ -9,11 +9,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="regesc-core" />
         <module name="regesc-api" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="gateway" options="-parameters" />
       <module name="regesc-api" options="-parameters" />
       <module name="regesc-core" options="-parameters" />
     </option>

@@ -11,9 +11,9 @@ spring.profiles.active: mysql
 # logger configuration
 # ---------------------------------------------------------------------------------------------------------------
 
-logging:
-  level:
-    com.umg.dw.api.util: DEBUG
-    com.umg.dw.api.controller: DEBUG
-    org.springframework.web: INFO
-    org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE
+#logging:
+#  level:
+#    com.umg.dw.api.util: DEBUG
+#    com.umg.dw.api.controller: DEBUG
+#    org.springframework.web: INFO
+#    org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE
