@@ -1,0 +1,13 @@
+com\umg\regesc\api\DWAPIApplication.class
+com\umg\regesc\api\controller\PersonaJpaController.class
+com\umg\regesc\api\repository\CursoRepository.class
+com\umg\regesc\api\controller\ProfesorJpaController.class
+com\umg\regesc\api\repository\MatriculaestudianteRepository.class
+com\umg\regesc\api\controller\MatriculaprofesorJpaController.class
+com\umg\regesc\api\repository\MatriculaprofesorRepository.class
+com\umg\regesc\api\controller\MatriculaestudianteJpaController.class
+com\umg\regesc\api\repository\PersonaRepository.class
+com\umg\regesc\api\repository\StudentRepository.class
+com\umg\regesc\api\repository\ProfesorRepository.class
+com\umg\regesc\api\controller\CursoJpaController.class
+com\umg\regesc\api\controller\StudentJpaController.class

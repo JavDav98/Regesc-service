@@ -1,0 +1,6 @@
+com\umg\regesc\core\entities\Profesor.class
+com\umg\regesc\core\entities\Student.class
+com\umg\regesc\core\entities\Curso.class
+com\umg\regesc\core\entities\Persona.class
+com\umg\regesc\core\entities\Matriculaprofesor.class
+com\umg\regesc\core\entities\Matriculaestudiante.class

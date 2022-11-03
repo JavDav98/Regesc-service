@@ -1,0 +1,24 @@
+server:
+  port: 8887
+
+spring:
+#    main:
+#      web-application-type: reactive
+#  application:
+#    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: estudiante-api
+          uri: http://localhost:8585/
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<service>.*), /$\{service}
+
+        - id: regescapp
+          uri: http://localhost:4200/
+          predicates:
+            - Path=/regesc/**
+          filters:
+            - RewritePath=/regesc/(?<service>.*), /regesc/$\{service}
