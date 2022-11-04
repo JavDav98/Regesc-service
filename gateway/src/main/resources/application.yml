@@ -2,10 +2,8 @@ server:
   port: 8887
 
 spring:
-#    main:
-#      web-application-type: reactive
-#  application:
-#    name: api-gateway
+  application:
+    name: api-gateway
   cloud:
     gateway:
       routes:
@@ -15,6 +13,7 @@ spring:
             - Path=/api/**
           filters:
             - RewritePath=/api/(?<service>.*), /$\{service}
+            - TokenRelay=
 
         - id: regescapp
           uri: http://localhost:4200/
@@ -22,3 +21,37 @@ spring:
             - Path=/regesc/**
           filters:
             - RewritePath=/regesc/(?<service>.*), /regesc/$\{service}
+            - TokenRelay=
+
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          login-client:
+#            provider: regesc-app
+#            client-id: regesc-webapp
+#            client-secret: s9ffs6ETR3WFglSzPIWFbfBENdHLE67D
+#            authorization-grant-type: authorization_code
+#            redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+#            scope: read,write
+#        provider:
+#          regesc-app:
+#            authorization-uri: http://localhost:8080/auth/realms/RegescKeycloak/protocol/openid-connect/auth
+#            token-uri: http://localhost:8080/auth/realms/RegescKeycloak/protocol/openid-connect/token
+#            user-info-uri: http://localhost:8080/auth/realms/RegescKeycloak/protocol/openid-connect/userinfo
+#            user-name-attribute: preferred_username
+#            jwk-set-uri: http://localhost:8080/auth/realms/RegescKeycloak/protocol/openid-connect/certs
+
+  security:
+    oauth2:
+      client:
+        provider:
+          regesc-app:
+            issuer-uri: http://localhost:8080/auth/realms/RegescKeycloak
+        registration:
+          keycloak-spring-gateway-client:
+            provider: regesc-app
+            client-id: regesc-webapp
+            client-secret: s9ffs6ETR3WFglSzPIWFbfBENdHLE67D
+            authorization-grant-type: authorization_code
+            redirect-uri: '{baseUrl}/login/oauth2/code/keycloak'
