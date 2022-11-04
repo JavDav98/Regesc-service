@@ -6,6 +6,8 @@ spring:
     name: api-gateway
   cloud:
     gateway:
+      default-filters:
+        - TokenRelay
       routes:
         - id: estudiante-api
           uri: http://localhost:8585/
@@ -13,7 +15,6 @@ spring:
             - Path=/api/**
           filters:
             - RewritePath=/api/(?<service>.*), /$\{service}
-            - TokenRelay=
 
         - id: regescapp
           uri: http://localhost:4200/
@@ -21,7 +22,14 @@ spring:
             - Path=/regesc/**
           filters:
             - RewritePath=/regesc/(?<service>.*), /regesc/$\{service}
-            - TokenRelay=
+
+#        - id: car-inventory
+#          uri: http://localhost:8010/
+#          predicates:
+#            - Path=/api/cars/**
+#          filters:
+#            - RewritePath=/api/cars(?<service>.*), /$\{service}
+#            - TokenRelay=
 
 #  security:
 #    oauth2:
@@ -51,6 +59,7 @@ spring:
         registration:
           keycloak-spring-gateway-client:
             provider: regesc-app
+            scope: openid
             client-id: regesc-webapp
             client-secret: s9ffs6ETR3WFglSzPIWFbfBENdHLE67D
             authorization-grant-type: authorization_code

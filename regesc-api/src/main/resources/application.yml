@@ -3,6 +3,13 @@
 server:
   port: 8585
 
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/auth/realms/RegescKeycloak/protocol/openid-connect/certs
+
 spring.profiles.active: mysql
 #spring.profiles.active: dev
 #spring.profiles.active: production
@@ -17,3 +24,5 @@ spring.profiles.active: mysql
 #    com.umg.dw.api.controller: DEBUG
 #    org.springframework.web: INFO
 #    org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE
+
+
