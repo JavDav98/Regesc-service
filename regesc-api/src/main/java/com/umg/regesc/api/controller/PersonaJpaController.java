@@ -29,23 +29,23 @@ public class PersonaJpaController implements Serializable {
     @Autowired
     PersonaRepository perosnaRepository;
 
-    @RolesAllowed({"list-student"})
     @GetMapping("/all")
+    @RolesAllowed({"list-student"})
     public List<Persona> getAll() {
         return (List<Persona>) perosnaRepository.findAll();
     }
 
 
-    @RolesAllowed({"new-student"})
-    @PostMapping("/new")
-    public Persona create(@RequestBody Persona s) {
-        return perosnaRepository.save(s);
-    }
-
     @PutMapping("/update")
     @RolesAllowed({"update-student"})
     public Persona update(@RequestBody Persona p) {
         return perosnaRepository.save(p);
+    }
+
+    @PostMapping("/new")
+    @RolesAllowed({"new-student"})
+    public Persona create(@RequestBody Persona s) {
+        return perosnaRepository.save(s);
     }
 
     @GetMapping("/find/by/cui/{cui}")

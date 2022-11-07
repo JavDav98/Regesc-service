@@ -29,26 +29,26 @@ public class StudentJpaController implements Serializable {
     @Autowired
     StudentRepository estudianteRepository;
 
-    @RolesAllowed({"list-student"})
     @GetMapping("/all")
+    @RolesAllowed({"list-student"})
     public List<Student> getAll() {
         return (List<Student>) estudianteRepository.findAll();
     }
 
-    @RolesAllowed({"new-student"})
     @PostMapping("/new")
+    @RolesAllowed({"new-student"})
     public Student create(@RequestBody Student s) {
         return estudianteRepository.save(s);
     }
 
-    @RolesAllowed({"update-student"})
     @PutMapping("/update")
+    @RolesAllowed({"update-student"})
     public Student update(@RequestBody Student estudiante) {
         return estudianteRepository.save(estudiante);
     }
 
-    @RolesAllowed({"delete-student"})
     @DeleteMapping("/delete/{carnet}")
+    @RolesAllowed({"delete-student"})
     public Student delete(@PathVariable("carnet")Integer carnet){
         Student s = estudianteRepository.findByCarnet(carnet);
         estudianteRepository.delete(s);
