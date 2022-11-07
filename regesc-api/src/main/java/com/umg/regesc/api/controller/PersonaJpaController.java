@@ -13,6 +13,8 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
+
 /**
  *
  * @author javdav
@@ -27,25 +29,27 @@ public class PersonaJpaController implements Serializable {
     @Autowired
     PersonaRepository perosnaRepository;
 
-    @GetMapping
-    @RequestMapping(
-            value = "/all",
-            produces = "application/json")
+    @RolesAllowed({"list-student"})
+    @GetMapping("/all")
     public List<Persona> getAll() {
         return (List<Persona>) perosnaRepository.findAll();
     }
 
+
+    @RolesAllowed({"new-student"})
     @PostMapping("/new")
     public Persona create(@RequestBody Persona s) {
         return perosnaRepository.save(s);
     }
 
     @PutMapping("/update")
+    @RolesAllowed({"update-student"})
     public Persona update(@RequestBody Persona p) {
         return perosnaRepository.save(p);
     }
 
     @GetMapping("/find/by/cui/{cui}")
+    @RolesAllowed({"findbycui-student"})
     public Persona findByCui(@PathVariable("cui") Long cui){
         return  perosnaRepository.findByCui(cui);
     }
